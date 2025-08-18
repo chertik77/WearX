@@ -132,5 +132,5 @@ private func detailRow(label: String, value: String) -> some View {
 }
 
 #Preview {
-    ProductDetailView(product: MockData.sampleProduct)
+    ProductDetailView(product: MockData.sampleProductOne)
 }

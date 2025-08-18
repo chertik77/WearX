@@ -55,5 +55,5 @@ struct ReviewsView: View {
 }
 
 #Preview {
-    ReviewsView(reviews: MockData.sampleProduct.reviews)
+    ReviewsView(reviews: MockData.sampleProductOne.reviews)
 }

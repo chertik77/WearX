@@ -13,19 +13,18 @@ struct AccountView: View {
     
     var body: some View {
         ZStack {
-            
             NavigationView {
                 Form {
                     Section {
-                        TextField("First Name", text: $viewModel.firstName)
-                        TextField("Last Name", text: $viewModel.lastName)
-                        TextField("Email", text: $viewModel.email)
+                        TextField("First Name", text: $viewModel.user.firstName)
+                        TextField("Last Name", text: $viewModel.user.lastName)
+                        TextField("Email", text: $viewModel.user.email)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                         DatePicker(
                             "Birthday",
-                            selection: $viewModel.birthdate,
+                            selection: $viewModel.user.birthdate,
                             displayedComponents: .date
                         )
                         Button {
@@ -39,11 +38,11 @@ struct AccountView: View {
                     Section {
                         Toggle(
                             "Show Out of Stock Products",
-                            isOn: $viewModel.showOutOfStockItems
+                            isOn: $viewModel.user.showOutOfStockItems
                         )
                         Toggle(
                             "Enable Dark Mode",
-                            isOn: $viewModel.enableDarkMode
+                            isOn: $viewModel.user.enableDarkMode
                         )
                     } header: {
                         Text("Requests")
@@ -52,6 +51,7 @@ struct AccountView: View {
                 .navigationTitle("Account")
                 .tint(.orange)
             }
+            .onAppear { viewModel.retrieveUser() }
             .alert(
                 Text(
                     alertTitle(

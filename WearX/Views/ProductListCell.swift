@@ -38,5 +38,5 @@ struct ProductListCell: View {
 }
 
 #Preview {
-    ProductListCell(product: MockData.sampleProduct)
+    ProductListCell(product: MockData.sampleProductOne)
 }

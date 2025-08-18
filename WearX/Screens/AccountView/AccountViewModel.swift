@@ -8,35 +8,51 @@
 import SwiftUI
 
 final class AccountViewModel: ObservableObject {
-    @Published var firstName = ""
-    @Published var lastName = ""
-    @Published var email = ""
-    @Published var birthdate = Date()
-    @Published var showOutOfStockItems = false
-    @Published var enableDarkMode = false
+
+    @AppStorage("user") private var userData: Data?
+    @Published var user = User()
     
     @Published var isAlertPresented = false
     @Published var activeAlert: AlertState?
 
+    func saveChanges() {
+        guard isValidForm else { return }
+        
+        do {
+            let data = try JSONEncoder().encode(user)
+            userData = data
+            isAlertPresented = true
+            activeAlert = .userSaveSuccess
+        } catch {
+            isAlertPresented = true
+            activeAlert = .invalidUserData
+        }
+    }
+    
+    func retrieveUser() {
+        guard let userData = userData else { return }
+        
+        do {
+           user = try JSONDecoder().decode(User.self, from: userData)
+        } catch {
+            isAlertPresented = true
+            activeAlert = .invalidUserData
+        }
+    }
+    
     var isValidForm: Bool {
-        guard !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty else {
+        guard !user.firstName.isEmpty && !user.lastName.isEmpty && !user.email.isEmpty else {
             isAlertPresented = true
             activeAlert = .invalidForm
             return false
         }
         
-        guard email.isValidEmail else {
+        guard user.email.isValidEmail else {
             isAlertPresented = true
             activeAlert = .invalidEmail
             return false
         }
     
         return true
-    }
-    
-    func saveChanges() {
-        guard isValidForm else { return }
-        
-        print("Changes have been saved successfully!")
     }
 }
