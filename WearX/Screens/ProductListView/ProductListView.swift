@@ -15,21 +15,18 @@ struct ProductListView: View {
             NavigationView {
                 List(viewModel.products) { product in
                     ProductListCell(product: product)
-                        .onTapGesture {
-                            viewModel.selectedProduct = product
+                        .onTapGesture { viewModel.selectedProduct = product }
+                        .onAppear {
+                            if product.id == viewModel.products.last?.id {
+                                viewModel.loadData()
+                            }
                         }
                 }
                 .refreshable { viewModel.handleRefresh() }
                 .navigationTitle("Products")
                 .listStyle(.plain)
             }
-            .task { viewModel.getProducts() }
-            
-            if viewModel.isLoading {
-                ProgressView()
-                    .scaleEffect(2)
-                    .tint(.accent)
-            }
+            .task { viewModel.loadData() }
         }
         .sheet(item: $viewModel.selectedProduct) { selectedProduct in
             ProductDetailView(product: selectedProduct)
