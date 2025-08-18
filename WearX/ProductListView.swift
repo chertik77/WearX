@@ -9,14 +9,17 @@ import SwiftUI
 
 struct ProductListView: View {
     @StateObject var viewModel = ProductListViewModel()
-    
+
     var body: some View {
         ZStack {
             NavigationView {
                 List(viewModel.products) { product in
                     ProductListCell(product: product)
+                        .onTapGesture {
+                            viewModel.selectedProduct = product
+                        }
                 }
-                .navigationTitle("Appetizers")
+                .navigationTitle("Products")
                 .listStyle(.plain)
             }
             .task { viewModel.getProducts() }
@@ -25,6 +28,9 @@ struct ProductListView: View {
                 ProgressView()
                     .tint(.orange)
             }
+        }
+        .sheet(item: $viewModel.selectedProduct) { selectedProduct in
+            ProductDetailView(product: selectedProduct)
         }
         
     }

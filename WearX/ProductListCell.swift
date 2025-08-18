@@ -27,7 +27,7 @@ struct ProductListCell: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.75)
                 
-                Text("$\(product.price, specifier: "%.1f")")
+                Text(product.formattedPrice)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fontWeight(.semibold)

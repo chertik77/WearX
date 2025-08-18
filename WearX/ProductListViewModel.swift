@@ -10,6 +10,8 @@ import Foundation
 final class ProductListViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var isLoading = false
+
+    @Published var selectedProduct: Product?
     
     func getProducts() {
         isLoading = true
