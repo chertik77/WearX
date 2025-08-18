@@ -10,6 +10,11 @@ import SwiftUI
 struct AccountView: View {
     
     @StateObject var viewModel = AccountViewModel()
+    @FocusState private var focusedTextField: FormTextField?
+    
+    enum FormTextField {
+        case firstName, lastName, email
+    }
     
     var body: some View {
         ZStack {
@@ -17,16 +22,29 @@ struct AccountView: View {
                 Form {
                     Section {
                         TextField("First Name", text: $viewModel.user.firstName)
+                            .focused($focusedTextField, equals: .firstName)
+                            .onSubmit { focusedTextField = .lastName }
+                            .submitLabel(.next)
+                        
                         TextField("Last Name", text: $viewModel.user.lastName)
+                            .focused($focusedTextField, equals: .lastName)
+                            .onSubmit { focusedTextField = .email }
+                            .submitLabel(.next)
+                        
                         TextField("Email", text: $viewModel.user.email)
+                            .focused($focusedTextField, equals: .email)
+                            .onSubmit { focusedTextField = nil }
+                            .submitLabel(.continue)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
+                        
                         DatePicker(
                             "Birthday",
                             selection: $viewModel.user.birthdate,
                             displayedComponents: .date
                         )
+                        
                         Button {
                             viewModel.saveChanges()
                         } label: {
@@ -35,6 +53,7 @@ struct AccountView: View {
                     } header: {
                         Text("Personal Info")
                     }
+                    
                     Section {
                         Toggle(
                             "Show Out of Stock Products",
@@ -49,6 +68,11 @@ struct AccountView: View {
                     }
                 }
                 .navigationTitle("Account")
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Button("Dismiss") { focusedTextField = nil }
+                    }
+                }
                 .tint(.accent)
             }
             .onAppear { viewModel.retrieveUser() }
