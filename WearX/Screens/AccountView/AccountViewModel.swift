@@ -15,12 +15,19 @@ final class AccountViewModel: ObservableObject {
     @Published var showOutOfStockItems = false
     @Published var enableDarkMode = false
     
+    @Published var isAlertPresented = false
+    @Published var activeAlert: AlertState?
+
     var isValidForm: Bool {
         guard !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty else {
+            isAlertPresented = true
+            activeAlert = .invalidForm
             return false
         }
         
         guard email.isValidEmail else {
+            isAlertPresented = true
+            activeAlert = .invalidEmail
             return false
         }
     

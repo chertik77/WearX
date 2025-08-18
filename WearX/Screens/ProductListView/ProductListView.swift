@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductListView: View {
     @StateObject var viewModel = ProductListViewModel()
-
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -32,7 +32,19 @@ struct ProductListView: View {
         .sheet(item: $viewModel.selectedProduct) { selectedProduct in
             ProductDetailView(product: selectedProduct)
         }
-        
+        .alert(
+            Text(
+                alertTitle(
+                    for: viewModel.activeAlert ?? .unableToComplete
+                )
+            ),
+            isPresented: $viewModel.isAlertPresented,
+            presenting: viewModel.activeAlert
+        ) {
+            alertActions(for: $0)
+        } message: {
+            alertMessage(for: $0)
+        }
     }
 }
 

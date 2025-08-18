@@ -10,12 +10,14 @@ import Foundation
 final class ProductListViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var isLoading = false
-
+    @Published var activeAlert: AlertState?
+    @Published var isAlertPresented = false
+    
     @Published var selectedProduct: Product?
     
     func getProducts() {
         isLoading = true
-    
+        
         NetworkManager.shared.getProducts { result in
             DispatchQueue.main.async { [self] in
                 isLoading = false
@@ -23,7 +25,17 @@ final class ProductListViewModel: ObservableObject {
                 case.success(let products):
                     self.products = products
                 case.failure(let error):
-                    print(error.localizedDescription)
+                    isAlertPresented = true
+                    switch error {
+                    case .invalidData:
+                        activeAlert = .invalidData
+                    case .invalidResponse:
+                        activeAlert = .invalidResponse
+                    case .invalidURL:
+                        activeAlert = .invalidURL
+                    case .unableToComplete:
+                        activeAlert = .unableToComplete
+                    }
                 }
             }
         }
