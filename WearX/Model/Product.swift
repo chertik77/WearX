@@ -39,7 +39,7 @@ struct Product: Decodable, Identifiable {
     let reviews: [Review]
     
     var discountedPrice: Double {
-        guard let discountPercentage = discountPercentage else { return price }
+        guard let discountPercentage else { return price }
     
         return price * (1 - discountPercentage / 100)
     }
