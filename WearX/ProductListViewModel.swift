@@ -9,10 +9,14 @@ import Foundation
 
 final class ProductListViewModel: ObservableObject {
     @Published var products: [Product] = []
+    @Published var isLoading = false
     
     func getProducts() {
+        isLoading = true
+    
         NetworkManager.shared.getProducts { result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
+                isLoading = false
                 switch result {
                 case.success(let products):
                     self.products = products

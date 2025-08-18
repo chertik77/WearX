@@ -11,13 +11,21 @@ struct ProductListView: View {
     @StateObject var viewModel = ProductListViewModel()
     
     var body: some View {
-        NavigationView {
-            List(viewModel.products) { product in
-                ProductListCell(product: product)
+        ZStack {
+            NavigationView {
+                List(viewModel.products) { product in
+                    ProductListCell(product: product)
+                }
+                .navigationTitle("Appetizers")
             }
-            .navigationTitle("Appetizers")
+            .task { viewModel.getProducts() }
+            
+            if viewModel.isLoading {
+                ProgressView()
+                    .tint(.orange)
+            }
         }
-        .task { viewModel.getProducts() }
+        
     }
 }
 
