@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct WearXTabView: View {
+    
+    @EnvironmentObject var order: Order
+
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
@@ -19,6 +22,7 @@ struct WearXTabView: View {
             Tab("Order", systemImage: "bag") {
                 OrderView()
             }
+            .badge(order.items.count)
         }
         .tint(.accent)
     }

@@ -10,11 +10,11 @@ import SwiftUI
 struct WXButton: View {
     
     let icon: String?
-    let label: String
+    let label: LocalizedStringKey
     let action: () -> Void
     
     init(
-        label: String,
+        label: LocalizedStringKey,
         icon: String? = nil,
         action: @escaping () -> Void
     ) {
