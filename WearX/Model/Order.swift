@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-final class Order: ObservableObject {
-    @Published var items: [Product] = []
+@Observable final class Order {
+    var items: [Product] = []
     
     var totalPrice: Double {
         items.reduce(0) { $0 + $1.discountedPrice }

@@ -6,15 +6,15 @@
 //
 
 import Foundation
+import Observation
 
-@MainActor
-final class ProductListViewModel: ObservableObject {
-    @Published var products: [Product] = []
-    @Published var isLoading = false
-    @Published var activeAlert: AlertState?
-    @Published var isAlertPresented = false
+@Observable @MainActor final class ProductListViewModel {
+    var products: [Product] = []
+    var isLoading = false
+    var activeAlert: AlertState?
+    var isAlertPresented = false
     
-    @Published var selectedProduct: Product?
+    var selectedProduct: Product?
     
     //    func getProducts() {
     //        isLoading = true

@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-final class AccountViewModel: ObservableObject {
+@Observable final class AccountViewModel {
 
-    @AppStorage("user") private var userData: Data?
-    @Published var user = User()
+    @ObservationIgnored @AppStorage("user") private var userData: Data?
     
-    @Published var isAlertPresented = false
-    @Published var activeAlert: AlertState?
+    var user = User()
+    var isAlertPresented = false
+    var activeAlert: AlertState?
 
     func saveChanges() {
         guard isValidForm else { return }

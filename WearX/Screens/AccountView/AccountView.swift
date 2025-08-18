@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AccountView: View {
     
-    @StateObject var viewModel = AccountViewModel()
+    @Bindable var viewModel = AccountViewModel()
+
     @FocusState private var focusedTextField: FormTextField?
     
     enum FormTextField {

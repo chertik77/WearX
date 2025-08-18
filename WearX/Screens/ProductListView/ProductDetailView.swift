@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductDetailView: View {
     
-    @EnvironmentObject var order: Order
+    @Environment(Order.self) var order: Order
     @Environment(\.dismiss) var dismiss
 
     let product: Product
