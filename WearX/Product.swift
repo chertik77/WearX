@@ -20,7 +20,7 @@ struct Product: Decodable, Identifiable {
 }
 
 
-struct ProductResponse {
+struct ProductResponse: Decodable {
     let products: [Product]
 }
 
