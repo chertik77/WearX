@@ -15,6 +15,7 @@ struct ProductListView: View {
             NavigationView {
                 List(viewModel.products) { product in
                     ProductListCell(product: product)
+                        .listRowSeparator(.hidden)
                         .onTapGesture { viewModel.selectedProduct = product }
                         .onAppear {
                             if product.id == viewModel.products.last?.id {
