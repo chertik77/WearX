@@ -22,7 +22,7 @@ struct ProductListView: View {
                 .navigationTitle("Products")
                 .listStyle(.plain)
             }
-            .task { viewModel.getProducts() }
+            .task { await viewModel.getProducts() }
             
             if viewModel.isLoading {
                 ProgressView()

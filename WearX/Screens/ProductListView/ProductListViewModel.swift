@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class ProductListViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var isLoading = false
@@ -15,28 +16,55 @@ final class ProductListViewModel: ObservableObject {
     
     @Published var selectedProduct: Product?
     
-    func getProducts() {
+    //    func getProducts() {
+    //        isLoading = true
+    //
+    //        NetworkManager.shared.getProducts { result in
+    //            DispatchQueue.main.async { [self] in
+    //                isLoading = false
+    //                switch result {
+    //                case.success(let products):
+    //                    self.products = products
+    //                case.failure(let error):
+    //                    isAlertPresented = true
+    //                    switch error {
+    //                    case .invalidData:
+    //                        activeAlert = .invalidData
+    //                    case .invalidResponse:
+    //                        activeAlert = .invalidResponse
+    //                    case .invalidURL:
+    //                        activeAlert = .invalidURL
+    //                    case .unableToComplete:
+    //                        activeAlert = .unableToComplete
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    
+    func getProducts() async {
         isLoading = true
         
-        NetworkManager.shared.getProducts { result in
-            DispatchQueue.main.async { [self] in
-                isLoading = false
-                switch result {
-                case.success(let products):
-                    self.products = products
-                case.failure(let error):
-                    isAlertPresented = true
-                    switch error {
-                    case .invalidData:
-                        activeAlert = .invalidData
-                    case .invalidResponse:
-                        activeAlert = .invalidResponse
-                    case .invalidURL:
-                        activeAlert = .invalidURL
-                    case .unableToComplete:
-                        activeAlert = .unableToComplete
-                    }
+        do {
+            products = try await NetworkManager.shared.getProducts()
+            isLoading = false
+        } catch {
+            isAlertPresented = true
+            isLoading = false
+            
+            if let wxError = error as? WXError {
+                switch wxError {
+                case .invalidData:
+                    activeAlert = .invalidData
+                case .invalidResponse:
+                    activeAlert = .invalidResponse
+                case .invalidURL:
+                    activeAlert = .invalidURL
+                case .unableToComplete:
+                    activeAlert = .unableToComplete
                 }
+            } else {
+                activeAlert = .unableToComplete
             }
         }
     }
