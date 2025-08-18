@@ -11,7 +11,7 @@ import SwiftUI
 struct WearXApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WearXTabView()
         }
     }
 }
