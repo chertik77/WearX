@@ -19,10 +19,11 @@ struct ProductListView: View {
                             viewModel.selectedProduct = product
                         }
                 }
+                .refreshable { viewModel.handleRefresh() }
                 .navigationTitle("Products")
                 .listStyle(.plain)
             }
-            .task { await viewModel.getProducts() }
+            .task { viewModel.getProducts() }
             
             if viewModel.isLoading {
                 ProgressView()

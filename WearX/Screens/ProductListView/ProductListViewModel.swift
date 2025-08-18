@@ -42,30 +42,37 @@ import Observation
     //        }
     //    }
     
-    func getProducts() async {
+    func getProducts() {
         isLoading = true
         
-        do {
-            products = try await NetworkManager.shared.getProducts()
-            isLoading = false
-        } catch {
-            isAlertPresented = true
-            isLoading = false
-            
-            if let wxError = error as? WXError {
-                switch wxError {
-                case .invalidData:
-                    activeAlert = .invalidData
-                case .invalidResponse:
-                    activeAlert = .invalidResponse
-                case .invalidURL:
-                    activeAlert = .invalidURL
-                case .unableToComplete:
+        Task {
+            do {
+                products = try await NetworkManager.shared.getProducts()
+                isLoading = false
+            } catch {
+                isAlertPresented = true
+                isLoading = false
+                
+                if let wxError = error as? WXError {
+                    switch wxError {
+                    case .invalidData:
+                        activeAlert = .invalidData
+                    case .invalidResponse:
+                        activeAlert = .invalidResponse
+                    case .invalidURL:
+                        activeAlert = .invalidURL
+                    case .unableToComplete:
+                        activeAlert = .unableToComplete
+                    }
+                } else {
                     activeAlert = .unableToComplete
                 }
-            } else {
-                activeAlert = .unableToComplete
             }
         }
+    }
+    
+    func handleRefresh() {
+        products.removeAll()
+        getProducts()
     }
 }
