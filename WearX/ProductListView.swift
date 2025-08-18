@@ -1,5 +1,5 @@
 //
-//  WearXListView.swift
+//  ProductListView.swift
 //  WearX
 //
 //  Created by Denys Babych on 18/08/2025.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct WearXListView: View {
+struct ProductListView: View {
     var body: some View {
         NavigationView {
             List(MockData.products) { product in
-                Text(product.title)
+              ProductListCell(product: product)
             }
             .navigationTitle("Appetizers")
         }
@@ -19,5 +19,5 @@ struct WearXListView: View {
 }
 
 #Preview {
-    WearXListView()
+    ProductListView()
 }

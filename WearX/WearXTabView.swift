@@ -11,7 +11,7 @@ struct WearXTabView: View {
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
-                WearXListView()
+                ProductListView()
             }
             Tab("Account", systemImage: "person") {
                 AccountView()
