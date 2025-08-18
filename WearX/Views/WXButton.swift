@@ -34,7 +34,7 @@ struct WXButton: View {
             .font(.headline)
             .padding(.vertical, 12)
             .frame(maxWidth: .infinity, minHeight: 50)
-            .background(.orange)
+            .background(.accent)
             .foregroundStyle(.white)
             .clipShape(.rect(cornerRadius: 10))
         }

@@ -20,7 +20,7 @@ struct WearXTabView: View {
                 OrderView()
             }
         }
-        .tint(.orange)
+        .tint(.accent)
     }
 }
 

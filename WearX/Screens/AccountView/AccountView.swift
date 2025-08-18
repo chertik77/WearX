@@ -49,7 +49,7 @@ struct AccountView: View {
                     }
                 }
                 .navigationTitle("Account")
-                .tint(.orange)
+                .tint(.accent)
             }
             .onAppear { viewModel.retrieveUser() }
             .alert(

@@ -26,7 +26,7 @@ struct ProductListView: View {
             
             if viewModel.isLoading {
                 ProgressView()
-                    .tint(.orange)
+                    .tint(.accent)
             }
         }
         .sheet(item: $viewModel.selectedProduct) { selectedProduct in
