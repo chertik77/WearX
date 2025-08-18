@@ -10,7 +10,7 @@ import SwiftUI
 @Observable final class AccountViewModel {
 
     @ObservationIgnored @AppStorage("user") private var userData: Data?
-    @ObservationIgnored @AppStorage("isDarkMode") var isDarkMode = true
+    @ObservationIgnored @AppStorage("isDarkMode") var isDarkMode = false
     
     var user = User()
     var isAlertPresented = false

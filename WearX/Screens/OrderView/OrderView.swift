@@ -34,7 +34,7 @@ struct OrderView: View {
                 if order.items.isEmpty {
                     EmptyState(
                         systemNameImage: "basket",
-                        message: "Your have no items in your product. Please add a product!"
+                        message: "Your have no items in your product.\nPlease add a product!"
                     )
                 }
             }
