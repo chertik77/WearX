@@ -10,8 +10,10 @@ import SwiftUI
 struct WearXListView: View {
     var body: some View {
         NavigationView {
-            Text("Appetizers List View")
-                .navigationTitle("Appetizers")
+            List(MockData.products) { product in
+                Text(product.title)
+            }
+            .navigationTitle("Appetizers")
         }
     }
 }
