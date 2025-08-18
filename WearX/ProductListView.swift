@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ProductListView: View {
+    @StateObject var viewModel = ProductListViewModel()
+    
     var body: some View {
         NavigationView {
-            List(MockData.products) { product in
-              ProductListCell(product: product)
+            List(viewModel.products) { product in
+                ProductListCell(product: product)
             }
             .navigationTitle("Appetizers")
         }
+        .task { viewModel.getProducts() }
     }
 }
 
