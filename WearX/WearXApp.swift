@@ -11,11 +11,14 @@ import SwiftUI
 struct WearXApp: App {
     
     @State private var order = Order()
+    @AppStorage("isDarkMode") private var isDarkMode = false
     
     var body: some Scene {
         WindowGroup {
             WearXTabView()
                 .environment(order)
+                .environment(\.colorScheme, isDarkMode ? .dark : .light)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }

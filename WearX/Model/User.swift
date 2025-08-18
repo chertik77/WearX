@@ -12,6 +12,4 @@ struct User: Codable {
     var lastName = ""
     var email = ""
     var birthdate = Date()
-    var showOutOfStockItems = false
-    var enableDarkMode = false
 }

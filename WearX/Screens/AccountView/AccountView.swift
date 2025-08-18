@@ -58,12 +58,8 @@ struct AccountView: View {
                     
                     Section {
                         Toggle(
-                            "Show Out of Stock Products",
-                            isOn: $viewModel.user.showOutOfStockItems
-                        )
-                        Toggle(
                             "Enable Dark Mode",
-                            isOn: $viewModel.user.enableDarkMode
+                            isOn: $viewModel.isDarkMode
                         )
                     } header: {
                         Text("Requests")
