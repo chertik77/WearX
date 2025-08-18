@@ -6,25 +6,29 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductListCell: View {
     
     let product: Product
-
+    
     var body: some View {
-        HStack {
-            Image("product-placeholder")
+        HStack(spacing: 16) {
+            KFImage(URL(string: product.thumbnail))
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 120, height: 90)
+                .aspectRatio(contentMode: .fill)
                 .clipShape(.rect(cornerRadius: 8))
+                .frame(width: 100, height: 75)
             
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(product.title)
-                    .font(.title3)
+                    .font(.headline)
                     .fontWeight(.medium)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.75)
                 
                 Text("$\(product.price, specifier: "%.1f")")
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fontWeight(.semibold)
             }

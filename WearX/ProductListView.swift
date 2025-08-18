@@ -17,6 +17,7 @@ struct ProductListView: View {
                     ProductListCell(product: product)
                 }
                 .navigationTitle("Appetizers")
+                .listStyle(.plain)
             }
             .task { viewModel.getProducts() }
             
