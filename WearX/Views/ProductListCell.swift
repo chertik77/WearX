@@ -27,7 +27,7 @@ struct ProductListCell: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.75)
                 
-                Text(product.formattedPrice)
+                Text(product.formattedDiscountedPrice)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fontWeight(.semibold)

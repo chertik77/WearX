@@ -25,7 +25,7 @@ struct Product: Decodable, Identifiable {
     let description: String
     let category: String
     let price: Double
-    let discountPercentage: Double
+    let discountPercentage: Double?
     let thumbnail: String
     let rating: Double
     let stock: Int
@@ -38,19 +38,18 @@ struct Product: Decodable, Identifiable {
     let images: [String]
     let reviews: [Review]
     
+    var discountedPrice: Double {
+        guard let discountPercentage = discountPercentage else { return price }
+    
+        return price * (1 - discountPercentage / 100)
+    }
+    
     var formattedPrice: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        return formatter.string(from: NSNumber(value: price)) ?? "$\(price)"
+        return price.formatCurrency
     }
     
     var formattedDiscountedPrice: String {
-        let discountedPrice = price * (1 - discountPercentage / 100)
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        return formatter.string(from: NSNumber(value: discountedPrice)) ?? "$\(String(format: "%.2f", discountedPrice))"
+        return discountedPrice.formatCurrency
     }
 }
 

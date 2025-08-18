@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct WearXApp: App {
+    
+    var order = Order()
+    
     var body: some Scene {
         WindowGroup {
             WearXTabView()
+                .environmentObject(order)
         }
     }
 }

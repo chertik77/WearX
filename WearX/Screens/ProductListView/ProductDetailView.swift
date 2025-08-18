@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ProductDetailView: View {
     
+    @EnvironmentObject var order: Order
+    @Environment(\.dismiss) var dismiss
+
     let product: Product
     
     var body: some View {
@@ -109,9 +112,9 @@ struct ProductDetailView: View {
                 }
                 
                 WXButton(label: "Add to Order", icon: "cart.fill") {
-                    print("order")
+                    order.add(product)
+                    dismiss()
                 }
-                
                 .padding(.horizontal)
                 .padding(.bottom, 20)
             }

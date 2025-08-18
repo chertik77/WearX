@@ -11,12 +11,11 @@ struct EmptyState: View {
     
     let image: String
     let message: String
-
+    
     var body: some View {
         ZStack {
             Color(.systemBackground)
                 .ignoresSafeArea(.all)
-            
             VStack {
                 Image(image)
                     .resizable()
@@ -31,7 +30,6 @@ struct EmptyState: View {
                     .padding()
             }
         }
-        .offset(y: -40)
     }
 }
 
