@@ -9,18 +9,20 @@ import SwiftUI
 
 struct EmptyState: View {
     
-    let image: String
+    let systemNameImage: String
     let message: String
     
     var body: some View {
         ZStack {
             Color(.systemBackground)
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea()
+    
             VStack {
-                Image(image)
+                Image(systemName: systemNameImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 150)
+                    .frame(height: 75)
+                    .foregroundStyle(.secondary)
                 
                 Text(message)
                     .font(.title2)
@@ -35,7 +37,7 @@ struct EmptyState: View {
 
 #Preview {
     EmptyState(
-        image: "empty-order",
+        systemNameImage: "basket",
         message: "This is our text message, for testing."
     )
 }
