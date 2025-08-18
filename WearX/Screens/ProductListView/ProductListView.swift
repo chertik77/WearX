@@ -26,6 +26,7 @@ struct ProductListView: View {
             
             if viewModel.isLoading {
                 ProgressView()
+                    .scaleEffect(2)
                     .tint(.accent)
             }
         }
