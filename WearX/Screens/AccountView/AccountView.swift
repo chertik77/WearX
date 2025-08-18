@@ -9,45 +9,39 @@ import SwiftUI
 
 struct AccountView: View {
     
-    @State private var firstName = ""
-    @State private var lastName = ""
-    @State private var email = ""
-    @State private var birthdate = Date()
-    @State private var showOutOfStockItems = false
-    @State private var enableDarkMode = false
+   @StateObject var viewModel = AccountViewModel()
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("First Name", text: $firstName)
-                    TextField("Last Name", text: $lastName)
-                    TextField("Email", text: $email)
+                    TextField("First Name", text: $viewModel.firstName)
+                    TextField("Last Name", text: $viewModel.lastName)
+                    TextField("Email", text: $viewModel.email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                     DatePicker(
                         "Birthday",
-                        selection: $birthdate,
+                        selection: $viewModel.birthdate,
                         displayedComponents: .date
                     )
                     Button {
-                        print("save")
+                        viewModel.saveChanges()
                     } label: {
                         Text("Save changes")
                     }
                 } header: {
                     Text("Personal Info")
                 }
-                
                 Section {
                     Toggle(
                         "Show Out of Stock Products",
-                        isOn: $showOutOfStockItems
+                        isOn: $viewModel.showOutOfStockItems
                     )
                     Toggle(
                         "Enable Dark Mode",
-                        isOn: $enableDarkMode
+                        isOn: $viewModel.enableDarkMode
                     )
                 } header: {
                     Text("Requests")
