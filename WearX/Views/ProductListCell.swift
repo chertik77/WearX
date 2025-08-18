@@ -27,10 +27,18 @@ struct ProductListCell: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.75)
                 
-                Text(product.formattedDiscountedPrice)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .fontWeight(.semibold)
+                HStack {
+                    Text(product.formattedDiscountedPrice)
+                        .font(.subheadline)
+                        .foregroundStyle(.green)
+                        .fontWeight(.semibold)
+                    
+                    Text(product.formattedPrice)
+                        .font(.subheadline)
+                        .strikethrough()
+                        .foregroundStyle(.secondary)
+                }
+                
             }
             .padding(.leading)
         }
