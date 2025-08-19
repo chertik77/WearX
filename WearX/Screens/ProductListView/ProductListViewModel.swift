@@ -50,6 +50,8 @@ extension ProductListViewModel {
             guard let decodedResponse = try? JSONDecoder().decode(ProductResponse.self, from: data) else { throw WXError.invalidData }
             
             self.products.append(contentsOf: decodedResponse.products)
+            
+            isInitialLoading = false
         } catch {
             isInitialLoading = false
             isAlertPresented = true
