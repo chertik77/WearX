@@ -10,11 +10,9 @@ import Observation
 
 @Observable @MainActor final class ProductListViewModel {
     var products: [Product] = []
-    
+    var isInitialLoading = false
     var activeAlert: AlertState?
     var isAlertPresented = false
-    
-    var selectedProduct: Product?
     
     let BASE_URL = "https://dummyjson.com/products"
     
@@ -39,6 +37,8 @@ extension ProductListViewModel {
     @MainActor
     func fetchProductsAsync() async throws {
         do {
+            if page == 0 { isInitialLoading = true }
+        
             page += 1
         
             guard let url = URL(string: urlString) else { throw WXError.invalidURL }
@@ -51,6 +51,7 @@ extension ProductListViewModel {
             
             self.products.append(contentsOf: decodedResponse.products)
         } catch {
+            isInitialLoading = false
             isAlertPresented = true
         
             if let wxError = error as? WXError {
@@ -68,7 +69,6 @@ extension ProductListViewModel {
                 activeAlert = .unableToComplete
             }
         }
-        
     }
     
     func loadData() {

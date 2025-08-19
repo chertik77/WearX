@@ -10,13 +10,15 @@ import SwiftUI
 struct ProductListView: View {
     @State var viewModel = ProductListViewModel()
     
+    @State private var selectedProduct: Product?
+    
     var body: some View {
         ZStack {
             NavigationView {
                 List(viewModel.products) { product in
                     ProductListCell(product: product)
                         .listRowSeparator(.hidden)
-                        .onTapGesture { viewModel.selectedProduct = product }
+                        .onTapGesture { selectedProduct = product }
                         .onAppear {
                             if product.id == viewModel.products.last?.id {
                                 viewModel.loadData()
@@ -28,8 +30,14 @@ struct ProductListView: View {
                 .listStyle(.plain)
             }
             .task { viewModel.loadData() }
+            
+            if viewModel.isInitialLoading {
+                ProgressView()
+                    .scaleEffect(2)
+                    .tint(.accent)
+            }
         }
-        .sheet(item: $viewModel.selectedProduct) { selectedProduct in
+        .sheet(item: $selectedProduct) { selectedProduct in
             ProductDetailView(product: selectedProduct)
         }
         .alert(
