@@ -6,17 +6,29 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductDetailView: View {
     
     @Environment(Order.self) var order: Order
     @Environment(\.dismiss) var dismiss
-
+    
     let product: Product
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                
+                if product.images.count > 1 {
+                    ImageCarouselView(images: product.images)
+                        .padding(.vertical, 20)
+                } else if let imageUrl = product.images.first {
+                    KFImage(URL(string: imageUrl))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 250)
+                        .padding(.top, 20)
+                }
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(product.title)
