@@ -29,7 +29,7 @@ struct ImageCarouselView: View {
             HStack {
                 ForEach(0..<images.count, id: \.self) { index in
                     Capsule()
-                        .fill(.white.opacity(selectedImageIndex == index ? 1 : 0.33))
+                        .fill(.opacity(selectedImageIndex == index ? 1 : 0.33))
                         .frame(width: 35, height: 8)
                         .onTapGesture { selectedImageIndex = index }
                 }
