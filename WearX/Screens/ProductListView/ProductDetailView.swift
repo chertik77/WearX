@@ -53,6 +53,7 @@ struct ProductDetailView: View {
                         HStack(spacing: 4) {
                             Image(systemName: "star.fill")
                                 .foregroundStyle(.yellow)
+                        
                             Text(String(format: "%.1f", product.rating))
                                 .font(.headline)
                         }
@@ -66,6 +67,7 @@ struct ProductDetailView: View {
                     Text("Description")
                         .font(.title2)
                         .fontWeight(.bold)
+                
                     Text(product.description)
                         .font(.body)
                         .padding(.bottom, 5)
@@ -84,26 +86,32 @@ struct ProductDetailView: View {
                         if let brand = product.brand {
                             detailRow(label: "Brand:", value: brand)
                         }
+                        
                         detailRow(
                             label: "Category:",
                             value: product.category.capitalized
                         )
+                        
                         detailRow(
                             label: "Stock:",
                             value: "\(product.stock) units"
                         )
+                        
                         detailRow(
                             label: "Availability:",
                             value: product.availabilityStatus
                         )
+                        
                         detailRow(
                             label: "Warranty:",
                             value: product.warrantyInformation
                         )
+                        
                         detailRow(
                             label: "Shipping:",
                             value: product.shippingInformation
                         )
+                        
                         if let returnPolicy = product.returnPolicy {
                             detailRow(
                                 label: "Return Policy:",
@@ -140,6 +148,7 @@ private func detailRow(label: String, value: String) -> some View {
             .font(.subheadline)
             .fontWeight(.medium)
             .foregroundStyle(.secondary)
+    
         Text(value)
             .font(.subheadline)
             .foregroundStyle(.primary)
@@ -148,4 +157,5 @@ private func detailRow(label: String, value: String) -> some View {
 
 #Preview {
     ProductDetailView(product: MockData.sampleProductOne)
+        .environment(Order())
 }

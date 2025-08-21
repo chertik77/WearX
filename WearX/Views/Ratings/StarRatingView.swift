@@ -8,28 +8,9 @@
 import SwiftUI
 
 struct StarRatingView: View {
-    struct ClipShape: Shape {
-        let width: Double
-        
-        func path(in rect: CGRect) -> Path {
-            Path(
-                CGRect(
-                    x: rect.minX,
-                    y: rect.minY,
-                    width: width,
-                    height: rect.height
-                )
-            )
-        }
-    }
     
     var rating: Double
     let maxRating: Int
-    
-    init(rating: Double, maxRating: Int) {
-        self.maxRating = maxRating
-        self.rating = rating
-    }
     
     var body: some View {
         HStack(spacing: 0) {
@@ -48,9 +29,26 @@ struct StarRatingView: View {
                     }
                 }
                 .clipShape(
-                    ClipShape(width: (reader.size.width / CGFloat(maxRating)) * CGFloat(rating))
+                    ClipShape(
+                        width: (reader.size.width / CGFloat(maxRating)) * CGFloat(rating)
+                    )
                 )
             }
+        )
+    }
+}
+
+struct ClipShape: Shape {
+    let width: Double
+    
+    func path(in rect: CGRect) -> Path {
+        Path(
+            CGRect(
+                x: rect.minX,
+                y: rect.minY,
+                width: width,
+                height: rect.height
+            )
         )
     }
 }

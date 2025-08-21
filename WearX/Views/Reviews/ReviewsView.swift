@@ -20,13 +20,16 @@ struct ReviewsView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     StarRatingView(rating: review.rating, maxRating: 5)
+                
                     Spacer()
+                
                     Text(formatReviewDate(review.date))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 Text(review.comment)
                     .font(.body)
+            
                 Text("- \(review.reviewerName)")
                     .font(.footnote)
                     .foregroundStyle(.gray)

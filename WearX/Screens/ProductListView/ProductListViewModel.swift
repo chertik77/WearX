@@ -22,7 +22,7 @@ import Observation
         return (page - 1) * limit
     }
     
-    var urlString: String {
+    private var urlString: String {
         return "\(BASE_URL)?limit=\(limit)&skip=\(skip)"
     }
     

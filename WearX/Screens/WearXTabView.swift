@@ -16,9 +16,11 @@ struct WearXTabView: View {
             Tab("Home", systemImage: "house") {
                 ProductListView()
             }
+        
             Tab("Account", systemImage: "person") {
                 AccountView()
             }
+        
             Tab("Order", systemImage: "bag") {
                 OrderView()
             }
@@ -30,4 +32,5 @@ struct WearXTabView: View {
 
 #Preview {
     WearXTabView()
+        .environment(Order())
 }
